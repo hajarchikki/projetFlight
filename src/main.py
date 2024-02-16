@@ -17,4 +17,7 @@ avg_delay_by_airline = df.groupBy("AIRLINE").agg(avg("ARRIVAL_DELAY").alias("avg
 avg_delay_by_airport = df.groupBy("ORIGIN_AIRPORT").agg(avg("ARRIVAL_DELAY").alias("avg_delay"))
 
 top_delayed_flights = df.orderBy(desc("ARRIVAL_DELAY")).limit(10)
+avg_delay_by_airline.show()
+avg_delay_by_airport.show()
+top_delayed_flights.show()
 
