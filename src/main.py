@@ -27,5 +27,17 @@ window = Window.orderBy(desc("count"))
 ranked_airports = airport_counts.withColumn("rank", rank().over(window))
 
 ranked_airports.show()
+df_rdd = df.rdd
+#print(rdd.take(5))
+
+airline_map = df_rdd.map(lambda row: (row["AIRLINE"], 1)).reduceByKey(lambda x, y: x + y)
+
+airline_map.collect()
+
+
+df.write.option("header",True) \
+    .partitionBy("DESTINATION_AIRPORT") \
+    .mode("overwrite") \
+    .csv("resources\output")
 
 
